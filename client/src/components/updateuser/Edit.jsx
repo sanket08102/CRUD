@@ -1,51 +1,49 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import toast from 'react-hot-toast';
 
 const Edit = () => {
+  const users = {
+    fname: "",
+    lname: "",
+    email: "",
+  };
 
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [user, setUser] = useState(users);
 
-    const users = {
-        fname: "",
-        lname: "",
-        email: "",
-    }
+  const inputChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+    console.log(user);
+  };
 
-    const {id} = useParams();
-    const navigate = useNavigate();
-    const [user, setUser] = useState(users);
+  useEffect(() => {
+    axios.get(`https://crud-app-server-gjdw.onrender.com/api/getone/${id}`)
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [id]);
 
-    const inputChangeHandler = (e) =>{
-        const{name, value} = e.target;
-            setUser({...user, [name]: value});
-            console.log(user);
-    }
-
-    useEffect(()=>{
-        axios.get(`https://crud-app-server-gjdw.onrender.com/api/getone/${id}`)
-        .then((response)=>{
-            setUser(response.data)
-        })
-        .catch((error)=>{
-            console.log(error);
-        })
-    },[id])
-
-    const submitForm = async(e)=>{
-        e.preventDefault();
-        await axios.put(`https://crud-app-server-gjdw.onrender.com/api/update/${id}`, user)
-        .then((response)=>{
-            toast.success(response.data.msg, {position:"top-right"})
-            navigate("/")
-        })
-        .catch(error => console.log(error))
-    }
+  const submitForm = async (e) => {
+    e.preventDefault();
+    await axios.put(`https://crud-app-server-gjdw.onrender.com/api/update/${id}`, user)
+      .then((response) => {
+        toast.success(response.data.msg, { position: "top-right" });
+        navigate("/");
+      })
+      .catch(error => console.log(error));
+  };
 
   return (
     <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
-      <div className="w-50 bg-white rounded p-3">
-        <Link to={"/"} className='btn btn-success'>Back</Link>
+      <div className="w-100 w-md-75 w-lg-50 bg-white rounded p-3">
+        <Link to="/" className='btn btn-success mb-3'>Back</Link>
         <form onSubmit={submitForm}>
           <h2>Update User</h2>
           <div className="mb-2">
@@ -56,7 +54,7 @@ const Edit = () => {
               name="fname"
               id="fname"
               autoComplete='off'
-              placeholder="Firt Name"
+              placeholder="First Name"
               className="form-control"
               onChange={inputChangeHandler}
             />
@@ -91,8 +89,7 @@ const Edit = () => {
         </form>
       </div>
     </div>
-  )
+  );
 }
 
-
-export default Edit
+export default Edit;
