@@ -28,8 +28,8 @@ const User = () => {
   };
 
   return (
-    <div className="d-flex vh-100 w-100 bg-cover bg-primary justify-content-center align-items-center">
-      <div className='w-50 bg-white rounded p-3'>
+    <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
+      <div className='w-100 w-md-75 w-sm-50 bg-white rounded p-3 m-5'>
         <Link to="/add" className='btn btn-success mb-3'>Add +</Link>
         <table className='table table-responsive'>
           <thead className='text-center'>
