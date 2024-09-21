@@ -24,4 +24,3 @@ mongoose.connect(URL)
   .catch((error) => console.log("MongoDB connection error:", error));
 
 app.use("/api", route);
-rm
