@@ -14,7 +14,7 @@ const User = () => {
   useEffect(() => {
 
     const fetchData = async () => {
-      const response = await axios.get("https://crud-app-3iae.onrender.com/api/getall")
+      const response = await axios.get("https://crud-app-server-gjdw.onrender.com/api/getall")
       setUsers(response.data);
     }
 
@@ -23,7 +23,7 @@ const User = () => {
   }, [])
 
   const deleteUser = async(userId) =>{
-    await axios.delete(`https://crud-app-3iae.onrender.com/api/delete/${userId}`)
+    await axios.delete(`https://crud-app-server-gjdw.onrender.com/api/delete/${userId}`)
     .then((responses)=>{
       setUsers((prevUser)=> prevUser.filter((user)=> user._id !== userId))
       toast.success(responses.data.msg, {position: 'top-right'})
