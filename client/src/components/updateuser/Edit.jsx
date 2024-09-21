@@ -23,7 +23,7 @@ const Edit = () => {
     }
 
     useEffect(()=>{
-        axios.get(`http://localhost:8000/api/getone/${id}`)
+        axios.get(`https://crud-app-3iae.onrender.com/api/getone/${id}`)
         .then((response)=>{
             setUser(response.data)
         })
@@ -34,7 +34,7 @@ const Edit = () => {
 
     const submitForm = async(e)=>{
         e.preventDefault();
-        await axios.put(`http://localhost:8000/api/update/${id}`, user)
+        await axios.put(`https://crud-app-3iae.onrender.com/api/update/${id}`, user)
         .then((response)=>{
             toast.success(response.data.msg, {position:"top-right"})
             navigate("/")
